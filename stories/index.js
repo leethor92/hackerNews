@@ -27,7 +27,8 @@ storiesOf('Hacker App/News List', module)
         return <NewsList posts= { defaultPosts }  />
     });
 
-storiesOf("Hacker App/News Form", module).add("default", () => <NewsForm />);
+storiesOf("Hacker App/News Form", module).add("default", () => (
+    <NewsForm post={post} handleAdd={action('Add new post:')} />));
 
 storiesOf("Hacker App/News Item", module)
     .add("default", () => <NewsItem post={post} upvoteHandler={action("upvoted")} /> )
