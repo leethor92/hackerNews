@@ -8,6 +8,9 @@ import { action } from "@storybook/addon-actions";
 import CommentForm from "../src/components/commentForm";
 import Comment from "../src/components/comment";
 import CommentList from "../src/components/commentList";
+import Header from "../src/components/header/";
+import { MemoryRouter } from "react-router";
+import LoginForm from "../src/components/authentication/loginForm";
 
 
 const post = {
@@ -19,7 +22,10 @@ const post = {
     upvotes: 10
 };
 
-storiesOf('Hacker App/News List', module)
+storiesOf("Hacker App/News List", module)
+    .addDecorator(story => (
+        <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
+    ))
     .add('default', () => {
         const defaultPosts = [
             { ...post, id: 1, title: 'Post 1', upvotes: 10 },
@@ -34,6 +40,9 @@ storiesOf("Hacker App/News Form", module).add("default", () => (
     <NewsForm post={post} handleAdd={action('Add new post:')} />));
 
 storiesOf("Hacker App/News Item", module)
+    .addDecorator(story => (
+        <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
+    ))
     .add("default", () => <NewsItem post={post} upvoteHandler={action("upvoted")} /> )
     .add("No hyperlink", () => <NewsItem post={{ ...post, link: "" }} upvoteHandler={action("upvoted")}/>);
 
@@ -63,3 +72,17 @@ storiesOf("Hacker App/Comment page/Comment list", module).add("default", () => {
         <CommentList upvoteHandler={action("upvoted")} comments={defaultComments} />
     );
 });
+
+storiesOf("Hacker App/Header", module)
+    .addDecorator(story => (
+        <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
+    ))
+    .add("default", () => <Header />);
+
+storiesOf("Hacker App/Login Form", module)
+    .addDecorator(story => (
+        <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
+    ))
+    .add("default", () => (
+        <LoginForm />
+    ));
